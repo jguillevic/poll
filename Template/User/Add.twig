@@ -1,0 +1,50 @@
+{% extends "Base.twig" %}
+
+{% block content %}
+<article>
+    <header>
+        <h1>S'inscrire</h1>
+    </header>
+    <section class="pt-5">
+        <form id="form" {% if (errors.login|length > 0 or errors.email|length > 0 or errors.password|length > 0) %}class="was-validated"{% endif %} method="POST" action="{{ GetRoute("UserAdd") }}">
+            <section class="form-group">
+                <label class="mb-2 fs-5 fw-bold" for="login">Identifiant</label>
+                <input class="form-control {% if errors.login|length > 0 %}is-invalid{% endif %}" id="login" name="login" type="text" value="{{ login }}" aria-describedby="login_errors"/>           
+                <section id="login_errors" class="invalid-feedback">
+    {% if errors.login|length > 0 %}           
+        {% for error in errors.login %}
+                    <p>{{ error }}</p>
+        {% endfor %}
+    {% endif %}
+                </section>
+            </section>
+            <section class="form-group pt-4">
+                <label class="mb-2 fs-5 fw-bold" for="email">Adresse électronique</label>
+                <input class="form-control {% if errors.email|length > 0 %}is-invalid{% endif %}" id="email" name="email" type="email" value="{{ email }}" aria-describedby="email_errors"/>
+                <section id="email_errors" class="invalid-feedback">
+    {% if errors.email|length > 0 %}
+        {% for error in errors.email %}
+                    <p>{{ error }}</p>
+        {% endfor %}
+    {% endif %}
+            </section>
+            <section class="form-group pt-4">
+                <label class="mb-2 fs-5 fw-bold" for="password">Mot de passe</label>
+                <input class="form-control {% if errors.password|length > 0 %}is-invalid{% endif %}" id="password" name="password" type="password" value="{{ password }}" aria-describedby="password_errors"/>
+                <section id="password_errors" class="invalid-feedback">
+    {% if errors.password|length > 0 %}
+        {% for error in errors.password %}
+                    <p>{{ error }}</p>
+        {% endfor %}
+    {% endif %}
+                </section>
+            </section>
+            <section class="pt-5 d-flex justify-content-center">
+                <a href="{{ GetRoute("HomeDisplay") }}" class="btn btn-lg btn-light me-3">Annuler</a>
+                <input class="btn btn-lg btn-primary" type="submit" value="S'inscrire"/>
+            </section>
+        </form>
+    </section>
+</article>
+<script type="module" src="../../Assets/JS/App/Template/User/Add.js"></script>
+{% endblock %}
