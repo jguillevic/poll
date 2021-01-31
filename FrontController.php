@@ -6,7 +6,7 @@ use Controller\User\UserController;
 use DAL\User\UserDA;
 use DAL\Poll\PollDA;
 use Helper\User\UserSession;
-use Helper\Route\RouteHelper;
+use \Helper\Route\RouteHelper;
 use Helper\Render\Renderer;
 use Helper\Redirection\Redirector;
 use Helper\Request\RequestInfoProvider;
