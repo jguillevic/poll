@@ -15,7 +15,7 @@ class DBConnection {
     private $transac;
 
     public function __construct() {
-        $this->pdo = new \PDO("mysql:dbname=" . getenv("DB_NAME") . ";host=" . getenv("DB_SERVER"), getenv("DB_LOGIN"), getenv("DB_PASSWORD"), [ \PDO::ATTR_AUTOCOMMIT=>FALSE ]);
+        $this->pdo = new \PDO(getenv("DB_ENGINE") . ":dbname=" . getenv("DB_NAME") . ";host=" . getenv("DB_SERVER"), getenv("DB_LOGIN"), getenv("DB_PASSWORD"), [ \PDO::ATTR_AUTOCOMMIT=>FALSE ]);
         $this->transac = new DBTransaction($this->pdo);
     }
 
