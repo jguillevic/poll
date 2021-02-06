@@ -57,8 +57,10 @@ class PollController {
     }
 
     public function Add() : void {
-        if (!$this->session->IsLogin())
+        if (!$this->session->IsLogin()) {
             $this->redirector->Redirect($this->rh->GetRoute("HomeDisplay"));
+            return;
+        }
 
         $errors = [ 
             "question" => []
@@ -93,7 +95,7 @@ class PollController {
                 $errors["question"][] = PollAddMessage::$QuestionEmpty;
                 $hasErrors = true;
             } else if (strlen($question) > self::QuestionMaxLength) {
-                $errors["question"][] = PollAddMessage::$QuestionTooLong;
+                $errors["question"][] = sprintf(PollAddMessage::$QuestionTooLong, self::QuestionMaxLength);
                 $hasErrors = true;
             }
 
@@ -101,35 +103,35 @@ class PollController {
             if (!empty($answer1)) {
                 $answersCount++;
                 if (strlen($answer1) > self::AnswerMaxLength) {
-                    $errors["answer_1"][] = PollAddMessage::$AnswerTooLong;
+                    $errors["answer_1"][] = sprintf(PollAddMessage::$AnswerTooLong, self::QuestionMaxLength);
                     $hasErrors = true;
                 }
             }
             if (!empty($answer2)) {
                 $answersCount++;
                 if (strlen($answer2) > self::AnswerMaxLength) {
-                    $errors["answer_2"][] = PollAddMessage::$AnswerTooLong;
+                    $errors["answer_2"][] = sprintf(PollAddMessage::$AnswerTooLong, self::QuestionMaxLength);
                     $hasErrors = true;
                 }
             }
             if (!empty($answer3)) {
                 $answersCount++;
                 if (strlen($answer3) > self::AnswerMaxLength) {
-                    $errors["answer_3"][] = PollAddMessage::$AnswerTooLong;
+                    $errors["answer_3"][] = sprintf(PollAddMessage::$AnswerTooLong, self::QuestionMaxLength);
                     $hasErrors = true;
                 }
             }
             if (!empty($answer4)) {
                 $answersCount++;
                 if (strlen($answer4) > self::AnswerMaxLength) {
-                    $errors["answer_4"][] = PollAddMessage::$AnswerTooLong;
+                    $errors["answer_4"][] = sprintf(PollAddMessage::$AnswerTooLong, self::QuestionMaxLength);
                     $hasErrors = true;
                 }
             }
             if (!empty($answer5)) {
                 $answersCount++;
                 if (strlen($answer5) > self::AnswerMaxLength) {
-                    $errors["answer_5"][] = PollAddMessage::$AnswerTooLong;
+                    $errors["answer_5"][] = sprintf(PollAddMessage::$AnswerTooLong, self::QuestionMaxLength);
                     $hasErrors = true;
                 }
             }
@@ -184,6 +186,7 @@ class PollController {
             }
         } else {
             $this->redirector->Redirect($this->rh->GetRoute("HomeDisplay"));
+            return;
         }
 
         echo $this->renderer->Render(join(DIRECTORY_SEPARATOR,[ "Poll", "Add.twig" ])

@@ -4,8 +4,10 @@ namespace DAL\Poll;
 
 use Model\Poll\Poll;
 use Model\Poll\PollAnswer;
+use Model\User\User;
 use DAL\Tools\DBConnection;
 use Contract\Poll\IPollDA;
+use Contract\Poll\PollFilter;
 
 class PollDA implements IPollDA {
     /**
@@ -41,7 +43,7 @@ class PollDA implements IPollDA {
                         $query
                         , [ 
                             ":question" => $poll->GetQuestion()
-                            , ":creation_date" => $poll->GetCreationDate()->format("Y-m-d")
+                            , ":creation_date" => $poll->GetCreationDate()->format("Y-m-d H:i:s")
                             , ":creation_user_id" => $poll->GetCreationUser()->GetId()
                             , ":duration" => $poll->GetDuration()
                         ]);
@@ -67,5 +69,73 @@ class PollDA implements IPollDA {
         }
 
         return $result;
+    }
+
+    public function Get(PollFilter $filter) : array {
+        $query = "SELECT P.id AS id, P.question AS question, P.duration AS duration, P.creation_date AS creation_date, U.id AS user_id, U.login AS user_login FROM polls P INNER JOIN users U ON P.creation_user_id = U.id";
+
+        $wheres = [];
+        if ($filter->GetOnGoing()) {
+            $wheres[] = "DATE_ADD(P.creation_date, INTERVAL P.duration DAY) >= :current_date";
+        }
+
+        $index = 0;
+        foreach ($wheres as $where) {
+            if ($index == 0) {
+                $query .= " WHERE " . $where;
+            } else {
+                $query .= " AND " . $where;
+            }
+            $index++;
+        }
+
+        $orderBys = [];
+        if ($filter->GetCreationDateSort() == "ASC" || $filter->GetCreationDateSort() == "DESC") {
+            $orderBys[] = "P.creation_date " . $filter->GetCreationDateSort();
+        }
+
+        $index = 0;
+        foreach ($orderBys as $orderBy) {
+            if ($index == 0) {
+                $query .= " ORDER BY " . $orderBy;
+            } else {
+                $query .= ", " . $orderBy;
+            }
+            $index++;
+        }
+
+        $polls = [];
+
+        try {
+            if ($this->connect->BeginTransac()) {
+                $params = [];
+
+                if ($filter->GetOnGoing()) {
+                    $currentDate = new \DateTime();
+                    $params[":current_date"] = $currentDate->format("Y-m-d H:i:s");
+                }
+
+                $items = $this->connect->FetchAll($query, $params);
+
+                $this->connect->CommitTransac();
+
+                foreach ($items as $item) {
+                    $poll = new Poll();
+                    $poll->SetId($item["id"]);
+                    $poll->SetQuestion($item["question"]);
+                    $poll->SetDuration($item["duration"]);
+                    $poll->SetCreationDate(new \DateTime($item["creation_date"]));
+                    $user = new User();
+                    $user->SetId($item["user_id"]);
+                    $user->SetLogin($item["user_login"]);
+                    $poll->SetCreationUser($user);
+                    $polls[] = $poll;
+                }
+            }
+        } catch (Exception $e) {
+            $this->connect->RollBackTransac();
+        }
+
+        return $polls;
     }
 }

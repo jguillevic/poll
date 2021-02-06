@@ -10,4 +10,6 @@ interface IPollDA {
      * @return bool true si succès, false sinon
      */
     public function Add(array $polls) : bool;
+
+    public function Get(PollFilter $filter) : array;
 }

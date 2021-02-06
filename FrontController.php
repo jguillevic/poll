@@ -3,6 +3,7 @@
 use Controller\Home\HomeController;
 use Controller\Poll\PollController;
 use Controller\User\UserController;
+use Controller\Error\ErrorController;
 use DAL\User\UserDA;
 use DAL\Poll\PollDA;
 use Helper\User\UserSession;
@@ -20,7 +21,7 @@ class FrontController {
 
         switch ($request_uri) {
             case $routeHelper->GetRoute("HomeDisplay"):
-                $controller = new HomeController(new Renderer());
+                $controller = new HomeController(new PollDA(), new Renderer());
                 $controller->Display();
                 break;
             case $routeHelper->GetRoute("UserLogin"):
@@ -40,7 +41,8 @@ class FrontController {
                 $controller->Add();
                 break;
             default:
-                echo "Page introuvable";
+                $controller = new ErrorController(new Renderer());
+                $controller->Display404Error();
                 break;
         }
     }

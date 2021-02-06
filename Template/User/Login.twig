@@ -3,7 +3,7 @@
 {% block content %}
 <article>
     <header>
-        <h1>S'authentifier</h1>
+        <h1>Se connecter</h1>
     </header>
     <section class="pt-5">
         <form id="form" {% if (errors.login|length > 0 or errors.password|length > 0) %}class="was-validated"{% endif %} method="POST" action="{{ GetRoute("UserLogin") }}">
@@ -31,7 +31,7 @@
             </section>
             <section class="pt-5 d-flex justify-content-center">
                 <a href="{{ GetRoute("HomeDisplay") }}" class="btn btn-lg btn-light me-3">Annuler</a>
-                <input class="btn btn-lg btn-primary" type="submit" value="S'authentifier"/>
+                <input class="btn btn-lg btn-primary" type="submit" value="Se connecter"/>
             </section>
         </form>
     </section>

@@ -3,7 +3,29 @@
 {% block content %}
 <article>
     <header>
-        <h1>La page d'accueil de folie !</h1>
+        <h1>Les plus récents</h1>
     </header>
+    <section>
+    {% for recentPoll in recentPolls %}
+        <p>{{ recentPoll.question }} (Créé par {{ recentPoll.creationuser.login }}). Durée : {{ recentPoll.duration }}j. Se finit le {{ recentPoll.creationdate|date_modify("+" ~ recentPoll.duration ~ " day")|date("d/m/Y H:i:s") }}</p>
+    {% endfor %}
+    </section>
+</article>
+<article>
+    <header>
+        <h1>Les plus populaires</h1>
+    </header>
+    <section>
+    </section>
+</article>
+<article>
+    <header>
+        <h1>Se terminant bientôt</h1>
+    </header>
+    <section>
+    {% for nearEndPoll in nearEndPolls %}
+        <p>{{ nearEndPoll.question }} (Créé par {{ nearEndPoll.creationuser.login }}). Durée : {{ nearEndPoll.duration }}j. Se finit le {{ nearEndPoll.creationdate|date_modify("+" ~ nearEndPoll.duration ~ " day")|date("d/m/Y H:i:s") }}</p>
+    {% endfor %}
+    </section>
 </article>
 {% endblock %}

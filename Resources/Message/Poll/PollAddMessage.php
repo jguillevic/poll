@@ -14,7 +14,7 @@ class PollAddMessage {
     /**
      * @var string
      */
-    public static $LessThanTwoAnswers = "La saisie d'au moins 2 questions est obligatoire.";
+    public static $LessThanTwoAnswers = "La saisie d'au moins deux réponses est obligatoire.";
     /**
      * @var string
      */
