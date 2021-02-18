@@ -1,0 +1,72 @@
+.header {
+    display: block;
+    width: 100%;
+}
+
+.navbar {
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+    padding-left: 3em;
+    padding-right: 3em;
+
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    font-family: $title-font, sans-serif;
+    color: $main-dark;
+}
+
+.brand {
+    display: inline-block;
+
+    font-weight: 700;
+    font-size: 3em;
+    color: $main-dark;
+}
+
+.menu {
+    padding-left: 5em;
+
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    font-weight: 700;
+    font-size: 1.2em;
+}
+
+.menu-actions {
+    display: inline-block;
+}
+
+.menu-actions-item {
+    margin-top: 0.8em;
+    margin-right: 1.5em;
+
+    display: inline-block;
+
+    & > a {
+        color: $main-dark;
+
+        transition: color 0.2s;
+
+        &:hover {
+            color: $selection-color;
+        }
+    }
+}
+
+.menu-user {
+    display: inline-block;
+}
+
+.menu-user-item {
+    margin-left: 1em;
+    margin-right: 1em;
+
+    display: inline-block;
+}

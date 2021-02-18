@@ -1,0 +1,42 @@
+.btn {
+    display: inline-block;
+
+    font-weight: 700;
+    font-size: 1em;
+    
+    color: $main-light;
+    background-color: $main-color;
+
+    padding: 0.8em;
+    padding-left: 1.2em;
+    padding-right: 1.2em;
+
+    border-radius: 1em;
+
+    cursor: pointer;
+
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: $selection-color;
+    }
+}
+
+.btn-link {
+    padding-bottom: 0.1em;
+
+    display: inline-block;
+
+    font-weight: 700;
+    font-size: 1em;
+    color: $main-color;
+
+    border-bottom: 0.15em solid $main-color;
+
+    transition: color 0.2s, border-color 0.2s;
+
+    &:hover {
+        color: $selection-color;
+        border-color: $selection-color;
+    }
+}

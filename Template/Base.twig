@@ -4,38 +4,33 @@
         <meta charset="utf-8"/>
         <title>Polls</title>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <link href="../Assets/CSS/Bootstrap/bootstrap.min.css" rel="stylesheet">
+        <link href="../Assets/CSS/style.css" rel="stylesheet">
     </head>
     <body>
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-dark px-4" style="background-color: #8e24aa;">
-                <a class="navbar-brand" href="{{ GetRoute("HomeDisplay") }}">Sond@ge</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarText">
-                    <ul class="navbar-nav">
+        <header class="header">
+            <nav class="navbar">
+                <a class="brand" href="{{ GetRoute("HomeDisplay") }}">SOND<span class="main-color">@</span>GE</a>
+                <section class="menu">
+                    <li class="menu-actions">
 {% if (IsLogin()) %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ GetRoute("PollAdd") }}">Créer un sondage</a>
-                        </li>
-{% endif %}
-                    </ul>
-                    <section class="navbar-text d-flex">
+                        <ol class="menu-actions-item"><a href="{{ GetRoute("PollAdd") }}">Créer un sondage</a></ol>
+                        <ol class="menu-actions-item"><a href="{{ GetRoute("PollDisplay") }}">Mes sondages</a></ol>
+{% endif %}               
+                    </li>
+                    <li class="menu-user">
 {% if (IsLogin()) %}
-                        <a class="nav-link btn btn-link" href="{{ GetRoute("UserLogout") }}">Se déconnecter</a>
+                        <ol class="menu-user-item"><a class="btn" href="{{ GetRoute("UserLogout") }}">Se déconnecter</a></ol>
 {% else %}
-                        <a class="nav-link btn btn-link" href="{{ GetRoute("UserAdd") }}">S'inscrire</a>
-                        <a class="nav-link btn btn-link" href="{{ GetRoute("UserLogin") }}">Se connecter</a>
+                        <ol class="menu-user-item"><a class="btn-link" href="{{ GetRoute("UserLogin") }}">Se connecter</a></ol>
+                        <ol class="menu-user-item"><a class="btn" href="{{ GetRoute("UserAdd") }}">S'inscrire</a></ol>
 {% endif %}
-                    </span>
-                </div>
+                    </li>
+                </section>
             </nav>
         </header>
-        <section class="w-75 pt-5 mx-auto">
+        <section class="content">
             {% block content %}
             {% endblock %}
         <section>
-        <script src="../Assets/JS/Bootstrap/bootstrap.bundle.min.js"></script>
     </body>
 </html>

@@ -49,4 +49,49 @@ class PollAnswerDA {
 
         return $result;
     }
+
+    public function Get(array $pollIds) : array {
+        $query = "SELECT id, label, poll_id FROM poll_answers WHERE poll_id IN (";
+
+        $answers = [];
+        $params = [];
+
+        $i = 0;
+        foreach ($pollIds as $pollId) {
+            if ($i > 0) {
+                $query .= ", ";
+            }
+
+            $idParamName = ":poll_id_" . $i;
+
+            $query .= $idParamName;
+
+            $answers[$pollId] = [];
+            $params[$idParamName] = $pollId;
+
+            $i++;
+        }
+
+        $query .= ");";
+
+        try {
+            if ($this->connect->BeginTransac()) {
+
+                $items = $this->connect->FetchAll($query, $params);
+
+                $this->connect->CommitTransac();
+
+                foreach ($items as $item) {
+                    $answer = new PollAnswer();
+                    $answer->SetId($item["id"]);
+                    $answer->SetLabel($item["label"]);                
+                    $answers[$item["poll_id"]][$answer->GetId()] = $answer;
+                }
+            }
+        } catch (Exception $e) {
+            $this->connect->RollBackTransac();
+        }
+
+        return $answers;
+    }
 }

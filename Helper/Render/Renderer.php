@@ -4,6 +4,7 @@ namespace Helper\Render;
 
 use Contract\Render\IRenderer;
 use Twig\Loader\FilesystemLoader;
+use Twig\Extension\DebugExtension;
 use Twig\Environment;
 use Twig\TwigFunction;
 use Helper\Route\RouteHelper;
@@ -20,7 +21,18 @@ class Renderer implements IRenderer {
     }
 
     public function Render(string $fileName, array $args = []) : string {
-        $twig = new Environment($this->loader);
+        $params = [];
+
+        if (getenv("DEBUG")) {
+            $params["debug"] = true;
+        }
+
+        $twig = new Environment($this->loader, $params);
+
+        if (getenv("DEBUG")) {
+            $twig->addExtension(new DebugExtension());
+        }
+
         $function = new TwigFunction('GetRoute', function (string $code) 
         { 
             $routeHelper = new RouteHelper();

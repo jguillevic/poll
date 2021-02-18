@@ -21,6 +21,6 @@ class RouteHelper {
         if (array_key_exists($code, $this->routes))
             return $this->routes[$code];
         else
-            return "/";
+            return "/error/404";
     }
 }

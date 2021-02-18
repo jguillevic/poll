@@ -2,15 +2,15 @@
 
 {% block content %}
 <article>
-    <header>
-        <h1>Créer un sondage</h1>
+    <header class="f-header">
+        <h1>CRÉER UN SONDAGE</h1>
     </header>
-    <section class="pt-5">
-        <form id="form" method="POST" action="{{ GetRoute("PollAdd") }}">
-            <section class="form-group">
-                <label class="mb-2 fs-5 fw-bold" for="question">Question</label>
-                <input class="form-control {% if errors.question|length > 0 %}is-invalid{% endif %}" type="text" id="question" name="question" value="{{ question }}" maxlength="100" aria-describedby="question_errors"/>
-                <section id="question_errors" class="invalid-feedback">
+    <section>
+        <form class="form" id="form" method="POST" action="{{ GetRoute("PollAdd") }}">
+            <section class="f-group">  
+                <input class="f-input" type="text" id="question" name="question" value="{{ question }}" maxlength="100"/>
+                <label class="f-label" for="question">Question</label>
+                <section>
     {% if errors.question|length > 0 %}             
         {% for error in errors.question %}
                     <p>{{ error }}</p>
@@ -27,42 +27,54 @@
                     <option value="30" {% if (duration == 30) %}selected{% endif %}>30j</option>
                 </select>
             </section>
-            <section class="form-group pt-4">
-                <label class="mb-2 fs-5"><span class="fw-bold">Réponses</span> (2 au minium)</label>
-                <input class="form-control {% if errors.answer_1|length > 0 %}is-invalid{% endif %}" type="text" id="answer_1" name="answer_1" value="{{ answer_1 }}" maxlength="100" aria-describedby="answer_1_errors"/>
-                <section id="answer_1_errors" class="invalid-feedback">
+            <section class="f-group">
+                <input class="f-input" type="text" id="answer_1" name="answer_1" value="{{ answer_1 }}" maxlength="100"/>
+                <label class="f-label" for="answer_1">Réponse 1</label>
+                <section>
     {% if errors.answer_1|length > 0 %}             
         {% for error in errors.answer_1 %}
                     <p>{{ error }}</p>
         {% endfor %}
     {% endif %}
                 </section>
-                <input class="form-control mt-2 {% if errors.answer_2|length > 0 %}is-invalid{% endif %}" type="text" id="answer_2" name="answer_2" value="{{ answer_2 }}" maxlength="100" aria-describedby="answer_2_errors"/>
-                <section id="answer_2_errors" class="invalid-feedback">
+            </section>
+            <section class="f-group">
+                <input class="f-input" type="text" id="answer_2" name="answer_2" value="{{ answer_2 }}" maxlength="100"/>
+                <label class="f-label" for="answer_2">Réponse 2</label>
+                <section>
     {% if errors.answer_2|length > 0 %}             
         {% for error in errors.answer_2 %}
                     <p>{{ error }}</p>
         {% endfor %}
     {% endif %}
                 </section>
-                <input class="form-control mt-2 {% if errors.answer_3|length > 0 %}is-invalid{% endif %}" type="text" id="answer_3" name="answer_3" value="{{ answer_3 }}" maxlength="100" aria-describedby="answer_3_errors"/>
-                <section id="answer_3_errors" class="invalid-feedback">
+            </section>
+            <section class="f-group">
+                <input class="f-input" type="text" id="answer_3" name="answer_3" value="{{ answer_3 }}" maxlength="100"/>
+                <label class="f-label" for="answer_3">Réponse 3</label>
+                <section>
     {% if errors.answer_3|length > 0 %}             
         {% for error in errors.answer_3 %}
                     <p>{{ error }}</p>
         {% endfor %}
     {% endif %}
                 </section>
-                <input class="form-control mt-2 {% if errors.answer_4|length > 0 %}is-invalid{% endif %}" type="text" id="answer_4" name="answer_4" value="{{ answer_4 }}" maxlength="100" aria-describedby="answer_4_errors"/>
-                <section id="answer_4_errors" class="invalid-feedback">
+            </section>
+            <section class="f-group">
+                <input class="f-input" type="text" id="answer_4" name="answer_4" value="{{ answer_4 }}" maxlength="100"/>
+                <label class="f-label" for="answer_4">Réponse 4</label>
+                <section>
     {% if errors.answer_4|length > 0 %}             
         {% for error in errors.answer_4 %}
                     <p>{{ error }}</p>
         {% endfor %}
     {% endif %}
                 </section>
-                <input class="form-control mt-2 {% if errors.answer_5|length > 0 %}is-invalid{% endif %}" type="text" id="answer_5" name="answer_5" value="{{ answer_5 }}" maxlength="100" aria-describedby="answer_5_errors"/>
-                <section id="answer_5_errors" class="invalid-feedback">
+            </section>
+            <section class="f-group">
+                <input class="f-input" type="text" id="answer_5" name="answer_5" value="{{ answer_5 }}" maxlength="100"/>
+                <label class="f-label" for="answer_5">Réponse 5</label>
+                <section>
     {% if errors.answer_5|length > 0 %}             
         {% for error in errors.answer_5 %}
                     <p>{{ error }}</p>
@@ -71,12 +83,11 @@
                 </section>
             </section>
 
-            <section class="pt-5 d-flex justify-content-center">
-                <a href="{{ GetRoute("HomeDisplay") }}" class="btn btn-lg btn-light me-3">Annuler</a>
-                <input class="btn btn-lg btn-primary" type="submit" value="Créer"/>
+            <section>
+                <a href="{{ GetRoute("HomeDisplay") }}" class="btn">Annuler</a>
+                <input class="btn" type="submit" value="Créer"/>
             </section>
         </form>
     </section>
 </article>
-<script type="module" src="../../Assets/JS/App/Template/Poll/Add.js"></script>
 {% endblock %}

@@ -3,29 +3,41 @@
 {% block content %}
 <article>
     <header>
-        <h1>Les plus récents</h1>
+        <h1 class="h-d-category_title">LES DERNIERS SONDAGES</h1>
     </header>
-    <section>
+    <section class="h-d-poll_container">
     {% for recentPoll in recentPolls %}
-        <p>{{ recentPoll.question }} (Créé par {{ recentPoll.creationuser.login }}). Durée : {{ recentPoll.duration }}j. Se finit le {{ recentPoll.creationdate|date_modify("+" ~ recentPoll.duration ~ " day")|date("d/m/Y H:i:s") }}</p>
+        <article class="h-d-poll">
+            <header class="h-d-poll_header">
+                <h1 class="h-d-poll_title">{{ recentPoll.question }}</h1>
+            </header>
+            <section class="h-d-poll_content">
+                {% for answer in recentPoll.answers %}
+                    <p class="h-d-poll_answer">{{ answer.label }}</p>
+                {% endfor %}
+            </section>
+            <footer class="h-d-poll_footer">
+                <p>Se termine le {{ recentPoll.creationdate|date_modify("+" ~ recentPoll.duration ~ " day")|date("d/m/Y H:i:s") }}</p>
+            </footer>
+        </article>
     {% endfor %}
     </section>
 </article>
 <article>
     <header>
-        <h1>Les plus populaires</h1>
+        <h1 class="h-d-category_title">LES PLUS POPULAIRES</h1>
     </header>
     <section>
     </section>
 </article>
 <article>
     <header>
-        <h1>Se terminant bientôt</h1>
+        <h1 class="h-d-category_title">SE TERMINENT BIENTÔT</h1>
     </header>
     <section>
-    {% for nearEndPoll in nearEndPolls %}
+    {# {% for nearEndPoll in nearEndPolls %}
         <p>{{ nearEndPoll.question }} (Créé par {{ nearEndPoll.creationuser.login }}). Durée : {{ nearEndPoll.duration }}j. Se finit le {{ nearEndPoll.creationdate|date_modify("+" ~ nearEndPoll.duration ~ " day")|date("d/m/Y H:i:s") }}</p>
-    {% endfor %}
+    {% endfor %} #}
     </section>
 </article>
 {% endblock %}

@@ -117,11 +117,13 @@ class PollDA implements IPollDA {
 
                 $items = $this->connect->FetchAll($query, $params);
 
-                $this->connect->CommitTransac();
+                $pollIds = [];
 
                 foreach ($items as $item) {
                     $poll = new Poll();
-                    $poll->SetId($item["id"]);
+                    $pollId = $item["id"];
+                    $pollIds[] = $pollId;
+                    $poll->SetId($pollId);
                     $poll->SetQuestion($item["question"]);
                     $poll->SetDuration($item["duration"]);
                     $poll->SetCreationDate(new \DateTime($item["creation_date"]));
@@ -129,8 +131,21 @@ class PollDA implements IPollDA {
                     $user->SetId($item["user_id"]);
                     $user->SetLogin($item["user_login"]);
                     $poll->SetCreationUser($user);
-                    $polls[] = $poll;
+                    $polls[$poll->GetId()] = $poll;
                 }
+
+                if (count($pollIds) > 0) {
+                    $answerDA = new PollAnswerDA($this->connect);
+                    $answers = $answerDA->Get($pollIds);
+
+                    if (count($answers) > 0) {
+                        foreach ($polls as $poll) {
+                            $poll->SetAnswers($answers[$poll->GetId()]);
+                        }
+                    }
+                }
+
+                $this->connect->CommitTransac();
             }
         } catch (Exception $e) {
             $this->connect->RollBackTransac();
