@@ -40,7 +40,6 @@ table {
   border-spacing: 0; }
 
 input {
-  -webkit-appearance: none;
   border: none;
   border-radius: 0; }
   input:focus {
@@ -132,6 +131,9 @@ input {
   .btn:hover {
     background-color: #0F9D58; }
 
+.btn-l {
+  font-size: 1.5em; }
+
 .btn-link {
   padding-bottom: 0.1em;
   display: inline-block;
@@ -162,11 +164,25 @@ input {
 .f-group {
   position: relative;
   display: inline-block;
+  margin-top: 0.7em;
+  margin-bottom: 0.7em;
   width: 100%; }
 
-.f-input:focus ~ .f-label {
-  top: 0em;
-  font-size: 0.8em;
+.f-group-errors .f-input {
+  color: #ff0033;
+  border-color: #ff0033;
+  background-color: rgba(255, 0, 51, 0.3); }
+  .f-group-errors .f-input:focus {
+    border-color: #ff0033;
+    background-color: rgba(255, 0, 51, 0.3); }
+
+.f-group-errors .f-label {
+  color: #ff0033; }
+
+.f-input:focus ~ .f-label,
+.f-input:not(:placeholder-shown) ~ .f-label {
+  top: -1.2em;
+  font-size: 0.9em;
   opacity: 1; }
 
 .f-input {
@@ -174,8 +190,6 @@ input {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 0.7em;
-  margin-bottom: 0.7em;
   padding: 0.5em;
   font-family: "Montserrat";
   font-size: 1.5em;
@@ -194,8 +208,53 @@ input {
   color: #747474;
   position: absolute;
   left: 0.5em;
-  top: 1.4em;
+  top: 0.7em;
   transition: 0.2s ease all; }
+
+.f-radio-toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 0.7em;
+  margin-bottom: 0.7em; }
+  .f-radio-toolbar input[type="radio"] {
+    opacity: 0;
+    position: fixed;
+    width: 0; }
+    .f-radio-toolbar input[type="radio"]:checked + label {
+      background-color: #0F9D58;
+      border-color: #0F9D58;
+      color: #FFFFFF; }
+  .f-radio-toolbar label {
+    display: inline-block;
+    background-color: #FFFFFF;
+    padding: 0.5em;
+    padding-top: 1.3em;
+    text-align: center;
+    font-family: "Montserrat";
+    font-size: 1.4em;
+    font-weight: 700;
+    color: #747474;
+    border: 0.1em solid #A33327;
+    border-radius: 50%;
+    width: 4em;
+    height: 4em;
+    cursor: pointer;
+    transition: 0.2s ease all; }
+
+.f-errors-container {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  font-family: "Montserrat";
+  font-size: 1em;
+  color: #ff0033; }
+
+.f-buttons-container {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center; }
 
 /* Page */
 .h-d-category_title {

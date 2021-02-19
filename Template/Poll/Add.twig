@@ -7,87 +7,99 @@
     </header>
     <section>
         <form class="form" id="form" method="POST" action="{{ GetRoute("PollAdd") }}">
-            <section class="f-group">  
-                <input class="f-input" type="text" id="question" name="question" value="{{ question }}" maxlength="100"/>
+            <section id="question_group" class="f-group {% if errors.question|length > 0 %}f-group-errors{% endif %}">  
+                <input class="f-input" type="text" id="question" name="question" value="{{ question }}" maxlength="100" placeholder=" "/>
                 <label class="f-label" for="question">Question</label>
-                <section>
-    {% if errors.question|length > 0 %}             
+    {% if errors.question|length > 0 %}
+                <section id="question_errors" class="f-errors-container">  
+                    <ul>           
         {% for error in errors.question %}
-                    <p>{{ error }}</p>
+                        <li class="f-error">{{ error }}</li>
         {% endfor %}
-    {% endif %}
+                    </ul>
                 </section>
+    {% endif %}
+            </section>      
+            <section class="f-group f-radio-toolbar">
+                <input type="radio" id="1day" name="duration" value="1" {% if (duration == 1) %}checked{% endif %}>
+                <label for="1day">1 j</label>
+                <input type="radio" id="7day" name="duration" value="7" {% if (duration == 7) %}checked{% endif %}>
+                <label for="7day">7 j</label>
+                <input type="radio" id="15day" name="duration" value="15" {% if (duration == 15) %}checked{% endif %}>
+                <label for="15day">15 j</label>
+                <input type="radio" id="30day" name="duration" value="30" {% if (duration == 30) %}checked{% endif %}>
+                <label for="30day">30 j</label>
             </section>
-            <section class="form-group pt-4 col-md-1">
-                <label class="mb-2 fs-5 fw-bold" for="duration">Durée</label>
-                <select class="form-select" id="duration" name="duration">
-                    <option value="1" {% if (duration == 1) %}selected{% endif %}>1j</option>
-                    <option value="7" {% if (duration == 7) %}selected{% endif %}>7j</option>
-                    <option value="15" {% if (duration == 15) %}selected{% endif %}>15j</option>
-                    <option value="30" {% if (duration == 30) %}selected{% endif %}>30j</option>
-                </select>
-            </section>
-            <section class="f-group">
-                <input class="f-input" type="text" id="answer_1" name="answer_1" value="{{ answer_1 }}" maxlength="100"/>
+            <section id="answer_1_group" class="f-group {% if errors.answer_1|length > 0 %}f-group-errors{% endif %}">
+                <input class="f-input" type="text" id="answer_1" name="answer_1" value="{{ answer_1 }}" maxlength="100" placeholder=" "/>
                 <label class="f-label" for="answer_1">Réponse 1</label>
-                <section>
-    {% if errors.answer_1|length > 0 %}             
+    {% if errors.answer_1|length > 0 %}  
+                <section id="answer_1_errors" class="f-errors-container">  
+                    <ul>           
         {% for error in errors.answer_1 %}
-                    <p>{{ error }}</p>
+                        <li class="f-error">{{ error }}</li>
         {% endfor %}
-    {% endif %}
+                    </ul>
                 </section>
+    {% endif %}
             </section>
-            <section class="f-group">
-                <input class="f-input" type="text" id="answer_2" name="answer_2" value="{{ answer_2 }}" maxlength="100"/>
+            <section id="answer_2_group" class="f-group {% if errors.answer_2|length > 0 %}f-group-errors{% endif %}">
+                <input class="f-input" type="text" id="answer_2" name="answer_2" value="{{ answer_2 }}" maxlength="100" placeholder=" "/>
                 <label class="f-label" for="answer_2">Réponse 2</label>
-                <section>
-    {% if errors.answer_2|length > 0 %}             
+    {% if errors.answer_2|length > 0 %}
+                <section id="answer_2_errors" class="f-errors-container">  
+                    <ul>           
         {% for error in errors.answer_2 %}
-                    <p>{{ error }}</p>
+                        <li class="f-error">{{ error }}</li>
         {% endfor %}
-    {% endif %}
+                    </ul>
                 </section>
+    {% endif %}
             </section>
-            <section class="f-group">
-                <input class="f-input" type="text" id="answer_3" name="answer_3" value="{{ answer_3 }}" maxlength="100"/>
+            <section id="answer_3_group" class="f-group {% if errors.answer_3|length > 0 %}f-group-errors{% endif %}">
+                <input class="f-input" type="text" id="answer_3" name="answer_3" value="{{ answer_3 }}" maxlength="100" placeholder=" "/>
                 <label class="f-label" for="answer_3">Réponse 3</label>
-                <section>
-    {% if errors.answer_3|length > 0 %}             
+    {% if errors.answer_3|length > 0 %}   
+                <section id="answer_3_errors" class="f-errors-container">  
+                    <ul>            
         {% for error in errors.answer_3 %}
-                    <p>{{ error }}</p>
+                        <li class="f-error">{{ error }}</li>
         {% endfor %}
-    {% endif %}
+                    </ul>
                 </section>
+    {% endif %}
             </section>
-            <section class="f-group">
-                <input class="f-input" type="text" id="answer_4" name="answer_4" value="{{ answer_4 }}" maxlength="100"/>
+            <section id="answer_4_group" class="f-group {% if errors.answer_4|length > 0 %}f-group-errors{% endif %}">
+                <input class="f-input" type="text" id="answer_4" name="answer_4" value="{{ answer_4 }}" maxlength="100" placeholder=" "/>
                 <label class="f-label" for="answer_4">Réponse 4</label>
-                <section>
-    {% if errors.answer_4|length > 0 %}             
+    {% if errors.answer_4|length > 0 %}   
+                <section id="answer_4_errors" class="f-errors-container">  
+                    <ul>          
         {% for error in errors.answer_4 %}
-                    <p>{{ error }}</p>
+                        <li class="f-error">{{ error }}</li>
         {% endfor %}
-    {% endif %}
+                    </ul>
                 </section>
+    {% endif %}
             </section>
-            <section class="f-group">
-                <input class="f-input" type="text" id="answer_5" name="answer_5" value="{{ answer_5 }}" maxlength="100"/>
+            <section id="answer_5_group" class="f-group {% if errors.answer_5|length > 0 %}f-group-errors{% endif %}">
+                <input class="f-input" type="text" id="answer_5" name="answer_5" value="{{ answer_5 }}" maxlength="100" placeholder=" "/>
                 <label class="f-label" for="answer_5">Réponse 5</label>
-                <section>
-    {% if errors.answer_5|length > 0 %}             
+    {% if errors.answer_5|length > 0 %}  
+                <section id="answer_5_errors" class="f-errors-container">  
+                    <ul>           
         {% for error in errors.answer_5 %}
-                    <p>{{ error }}</p>
+                        <li class="f-error">{{ error }}</li>
         {% endfor %}
-    {% endif %}
+                    </ul>
                 </section>
+    {% endif %}
             </section>
-
-            <section>
-                <a href="{{ GetRoute("HomeDisplay") }}" class="btn">Annuler</a>
-                <input class="btn" type="submit" value="Créer"/>
+            <section class="f-buttons-container">
+                <input class="btn btn-l" type="submit" value="Créer"/>
             </section>
         </form>
     </section>
 </article>
+<script type="module" src="../../Assets/JS/App/Template/Poll/Add.js"></script>
 {% endblock %}

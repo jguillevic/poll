@@ -15,12 +15,13 @@ class RouteHelper {
         $this->routes["UserLogout"] = "/user/logout";
         $this->routes["UserAdd"] = "/user/add";
         $this->routes["HomeDisplay"] = "/";
+        $this->routes["ErrorDisplay404"] = "/error/404";
     }
 
     public function GetRoute(string $code) : string {
         if (array_key_exists($code, $this->routes))
             return $this->routes[$code];
         else
-            return "/error/404";
+            return $this->routes["ErrorDisplay404"];
     }
 }
